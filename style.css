@@ -1,0 +1,53 @@
+/* Configurações gerais*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
+body { 
+    background: linear-gradient (#1b304c) #557dff;
+    color: white;}
+
+    /* cabeçalho */
+
+    header { 
+    background: #1b304c;
+    padding: 15px 0;
+    border-bottom:  2px solid white;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    background-color: #1b304c;
+    border: 2px solid white;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: backgroud-color 0.3s;
+}
+
+.nav-btn :hover {
+    background-color: #557dff
+}
+
+
+
+.cartao-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+}
+
+/* titulo pricipal*/

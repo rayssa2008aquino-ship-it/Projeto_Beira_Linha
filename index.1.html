@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca de Carros</title>
+</head>
+
+<body>
+    <!-- Topo da página -->
+    <header>
+        <nav>
+            <a href="#cadastro" class="nav-btn">Cadastro de carros</a>
+            <a href="#galeria" class="nav-btn">Todos os carros</a>
+            <a href="#favoritos" class="nav-btn">Favoritos</a>
+            <a href="#contatos" class="nav-btn">Contatos</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="titulo">
+            Conheça a minha galeria de carros do sonho
+        </div>
+
+        <!-- Seção de Cadastro com Nome, Descrição e Botões -->
+        <div id="cadastro" class="secao-cadastro">
+            <!-- Correção: IDs específicos para o nome e para a descrição -->
+            <input id="nome_carro" type="text" placeholder="Digite o nome do carro" />
+            <input id="descrição" type="text" placeholder="Digite a descrição do carro" />
+
+            <!-- Atribuição das funções aos cliques dos botões -->
+            <button id="cadastrar_carros" onclick="cadastrar_carros()">Cadastrar</button>
+            <button id="remover" onclick="remover_itens()">Remover itens</button>
+            <button id="novo_carro" onclick="novo_carro()">Novo carro</button>
+        </div>
+
+        <!-- Galeria onde os carros cadastrados vão aparecer -->
+        <div class="galeria_de_carros" id="galeria">
+            <!-- Os carros novos entrarão aqui através do JavaScript -->
+        </div>
+    </div>
+
+   
+    <script src="script.js"></script>
+</body>
+
+</html>
