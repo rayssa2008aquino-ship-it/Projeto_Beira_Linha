@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca de Carros</title>
+     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -23,11 +24,14 @@
             Conheça a minha galeria de carros do sonho
         </div>
 
-        <!-- Seção de Cadastro com Nome, Descrição e Botões -->
+        <!-- Seção de Cadastro com Nome, Descrição, Imagem e Botões -->
         <div id="cadastro" class="secao-cadastro">
-            <!-- Correção: IDs específicos para o nome e para a descrição -->
             <input id="nome_carro" type="text" placeholder="Digite o nome do carro" />
             <input id="descrição" type="text" placeholder="Digite a descrição do carro" />
+            
+            <!-- Novo campo de imagem adaptado para carros -->
+            <label for="input_com_imagem">Selecione uma imagem do carro:</label>
+            <input type="file" id="input_com_imagem" accept="image" />
 
             <!-- Atribuição das funções aos cliques dos botões -->
             <button id="cadastrar_carros" onclick="cadastrar_carros()">Cadastrar</button>
@@ -41,7 +45,6 @@
         </div>
     </div>
 
-   
     <script src="script.js"></script>
 </body>
 
