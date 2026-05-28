@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca de Carros</title>
-     <link rel="stylesheet" href="style.css">
+     <link rel="stylesheet" href="./../css/style.css">
 </head>
 
 <body>
@@ -44,8 +44,25 @@
             <!-- Os carros novos entrarão aqui através do JavaScript -->
         </div>
     </div>
+<!-- Campo para filtrar os carros cadastrados -->
 
-    <script src="script.js"></script>
+
+      <section class = "section_filtro">
+        <h2>Confira a minha lista de carros abaixo!</h2>
+        <div class="div_filtro">
+          <p>Escreva o nome ao lado!</p>
+          <input type="text" id="texto_pesquisa" />
+          <button id="limpar_filtro">Limpar filtro</button>
+        </div>
+      </section>
+
+      <!-- Galeria onde os carros cadastrados vão aparecer -->
+      <div class="galeria_de_carros" id="galeria">
+        <!-- Os carros novos entrarão aqui através do JavaScript -->
+      </div>
+    </div>
+
+    <script src="./../java/script.js"></script>
 </body>
 
 </html>

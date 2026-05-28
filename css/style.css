@@ -1,7 +1,6 @@
-
-/* =========================
+/* ==========================================
    CONFIGURAÇÕES GERAIS
-========================= */
+========================================== */
 * {
     margin: 0;
     padding: 0;
@@ -15,9 +14,9 @@ body {
     min-height: 100vh;
 }
 
-/* =========================
+/* ==========================================
    CABEÇALHO
-========================= */
+========================================== */
 header {
     background-color: #0b1120;
     border-bottom: 3px solid #3b82f6;
@@ -50,9 +49,9 @@ nav {
     transform: scale(1.05);
 }
 
-/* =========================
+/* ==========================================
    CONTAINER PRINCIPAL
-========================= */
+========================================== */
 .container {
     width: 90%;
     max-width: 1200px;
@@ -60,9 +59,9 @@ nav {
     padding: 30px 0;
 }
 
-/* =========================
+/* ==========================================
    TÍTULO
-========================= */
+========================================== */
 .titulo {
     text-align: center;
     font-size: 2.5rem;
@@ -72,9 +71,9 @@ nav {
     text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
 }
 
-/* =========================
+/* ==========================================
    ÁREA DE CADASTRO
-========================= */
+========================================== */
 .secao-cadastro {
     background-color: rgba(15, 23, 42, 0.95);
     border: 2px solid #3b82f6;
@@ -108,7 +107,7 @@ nav {
     color: #dbeafe;
 }
 
-/* BOTÕES */
+/* BOTÕES DE CADASTRO */
 .secao-cadastro button {
     background-color: #3b82f6;
     color: white;
@@ -127,19 +126,86 @@ nav {
     transform: translateY(-2px);
 }
 
-/* =========================
-   GALERIA DE CARROS
-========================= */
-.galeria_de_carros,
-.imagens {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    margin-top: 30px;
+/* Customização para o botão específico de remover */
+#remover {
+    background-color: #ef4444;
 }
 
-/* CARTÕES */
-.cartão,
+#remover:hover {
+    background-color: #f87171;
+    color: white;
+}
+
+/* ==========================================
+   NOVA SEÇÃO: FILTRO (Adicionada)
+========================================== */
+.section_filtro {
+    text-align: center;
+    background-color: rgba(15, 23, 42, 0.8);
+    border: 1px solid #374151;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 40px auto;
+    max-width: 600px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.section_filtro h2 {
+    font-size: 1.4rem;
+    color: #60a5fa;
+    margin-bottom: 15px;
+}
+
+.div_filtro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.div_filtro p {
+    color: #cbd5e1;
+    font-weight: bold;
+}
+
+.div_filtro input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #3b82f6;
+    background-color: #1e293b;
+    color: white;
+    font-size: 1rem;
+}
+
+#limpar_filtro {
+    background-color: #4b5563;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#limpar_filtro:hover {
+    background-color: #6b7280;
+    transform: translateY(-1px);
+}
+
+/* ==========================================
+   GALERIA DE CARROS
+========================================== */
+.galeria_de_carros {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+/* CARTÕES E ITENS INTERNOS DOS CARDS */
 .cartao-item {
     background-color: #111827;
     border: 2px solid #374151;
@@ -149,14 +215,12 @@ nav {
     box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
 
-.cartão:hover,
 .cartao-item:hover {
     transform: scale(1.03);
     border-color: #3b82f6;
 }
 
-/* IMAGENS */
-.cartão img,
+/* IMAGENS DOS CARDS */
 .cartao-item img {
     width: 100%;
     height: 220px;
@@ -168,16 +232,19 @@ nav {
 .cartao-item h3 {
     color: #60a5fa;
     padding: 15px 15px 5px;
+    font-size: 1.3rem;
 }
 
 .cartao-item p {
     color: #d1d5db;
     padding: 0 15px 15px;
+    font-size: 0.95rem;
 }
 
-
+/* ==========================================
+   RESPONSIVIDADE
+========================================== */
 @media (max-width: 768px) {
-
     .titulo {
         font-size: 2rem;
     }
@@ -189,5 +256,14 @@ nav {
     .nav-btn {
         padding: 10px 18px;
         font-size: 0.9rem;
+    }
+
+    .div_filtro {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .div_filtro input {
+        width: 100%;
     }
 }
