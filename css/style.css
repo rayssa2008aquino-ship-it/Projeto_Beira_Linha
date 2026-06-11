@@ -1,5 +1,5 @@
 /* ==========================================
-   CONFIGURAÇÕES GERAIS
+   RESET & CONFIGURAÇÕES GERAIS
 ========================================== */
 * {
     margin: 0;
@@ -7,152 +7,216 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    background: linear-gradient(135deg, #0f172a, #1e3a8a);
+    background: linear-gradient(135deg, #020617, #0f172a, #1e3a8a);
     color: white;
     min-height: 100vh;
 }
 
 /* ==========================================
-   CABEÇALHO
+   HEADER & NAVEGAÇÃO
 ========================================== */
 header {
-    background-color: #0b1120;
+    background: #0b1120;
     border-bottom: 3px solid #3b82f6;
-    padding: 18px 0;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    padding: 18px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 4px 15px rgba(0,0,0,.4);
 }
 
 nav {
     display: flex;
     justify-content: center;
-    gap: 20px;
     flex-wrap: wrap;
-}
-
-/* BOTÕES DO MENU */
-.nav-btn {
-    background-color: #1e293b;
-    color: white;
-    border: 2px solid #3b82f6;
-    padding: 12px 24px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.nav-btn:hover {
-    background-color: #3b82f6;
-    color: black;
-    transform: scale(1.05);
-}
-
-/* ==========================================
-   CONTAINER PRINCIPAL
-========================================== */
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-    padding: 30px 0;
-}
-
-/* ==========================================
-   TÍTULO
-========================================== */
-.titulo {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin: 30px 0;
-    color: #ffffff;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
-}
-
-/* ==========================================
-   ÁREA DE CADASTRO
-========================================== */
-.secao-cadastro {
-    background-color: rgba(15, 23, 42, 0.95);
-    border: 2px solid #3b82f6;
-    border-radius: 15px;
-    padding: 25px;
-    margin-bottom: 40px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-
-    display: flex;
-    flex-direction: column;
     gap: 15px;
 }
 
-/* INPUTS */
-.secao-cadastro input {
-    padding: 12px;
-    border-radius: 10px;
-    border: 1px solid #94a3b8;
-    background-color: #1e293b;
+.nav-btn {
+    text-decoration: none;
     color: white;
-    font-size: 1rem;
-}
-
-.secao-cadastro input::placeholder {
-    color: #cbd5e1;
-}
-
-/* LABEL */
-.secao-cadastro label {
+    background: #1e293b;
+    border: 2px solid #3b82f6;
+    padding: 12px 22px;
+    border-radius: 30px;
     font-weight: bold;
-    color: #dbeafe;
+    transition: .3s;
 }
 
-/* BOTÕES DE CADASTRO */
-.secao-cadastro button {
-    background-color: #3b82f6;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.secao-cadastro button:hover {
-    background-color: #60a5fa;
+.nav-btn:hover {
+    background: #3b82f6;
     color: black;
     transform: translateY(-2px);
 }
 
-/* Customização para o botão específico de remover */
-#remover {
-    background-color: #ef4444;
+/* ==========================================
+   LAYOUT CONTAINER & TÍTULO
+========================================== */
+.container {
+    width: 90%;
+    max-width: 1400px;
+    margin: auto;
+    padding: 30px 0;
 }
 
-#remover:hover {
-    background-color: #f87171;
-    color: white;
+.titulo {
+    text-align: center;
+    font-size: 3rem;
+    margin: 30px 0;
+    font-weight: bold;
+    text-shadow: 0 0 15px rgba(59,130,246,.8), 0 0 30px rgba(59,130,246,.5);
 }
 
 /* ==========================================
-   NOVA SEÇÃO: FILTRO (Adicionada)
+   ESTATÍSTICAS
+========================================== */
+.estatisticas {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.estatisticas h3 {
+    background: rgba(15,23,42,.95);
+    border: 2px solid #3b82f6;
+    padding: 15px 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.4);
+}
+
+.estatisticas span {
+    color: #60a5fa;
+}
+
+/* ==========================================
+   CARROSSEL
+========================================== */
+.carrossel {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    border: 2px solid #3b82f6;
+    box-shadow: 0 8px 25px rgba(0,0,0,.5);
+}
+
+.slides {
+    display: flex;
+    width: 300%;
+}
+
+.slides img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+/* ==========================================
+   FORMULÁRIO DE CADASTRO
+========================================== */
+.secao-cadastro {
+    background: rgba(15,23,42,.95);
+    border: 2px solid #3b82f6;
+    border-radius: 20px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.secao-cadastro input,
+.secao-cadastro select {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #1e293b;
+    color: white;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.secao-cadastro input:focus,
+.secao-cadastro select:focus {
+    outline: none;
+    box-shadow: 0 0 12px #3b82f6;
+}
+
+.secao-cadastro label {
+    font-weight: bold;
+    color: #60a5fa;
+}
+
+/* ==========================================
+   BOTÕES DO FORMULÁRIO
+========================================== */
+.secao-cadastro button {
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: .3s;
+}
+
+#cadastrar_carros {
+    background: #2563eb;
+    color: white;
+}
+
+#cadastrar_carros:hover {
+    background: #3b82f6;
+}
+
+#novo_carro {
+    background: #475569;
+    color: white;
+}
+
+#novo_carro:hover {
+    background: #64748b;
+}
+
+#remover {
+    background: #dc2626;
+    color: white;
+}
+
+#remover:hover {
+    background: #ef4444;
+}
+
+.preview-imagem {
+    width: 100%;
+    max-height: 350px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 2px solid #3b82f6;
+}
+
+/* ==========================================
+   FILTRO DE BUSCA
 ========================================== */
 .section_filtro {
-    text-align: center;
-    background-color: rgba(15, 23, 42, 0.8);
+    background: rgba(15,23,42,.9);
+    border-radius: 20px;
     border: 1px solid #374151;
-    border-radius: 15px;
-    padding: 20px;
-    margin: 40px auto;
-    max-width: 600px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    padding: 25px;
+    margin-bottom: 40px;
+    text-align: center;
 }
 
 .section_filtro h2 {
-    font-size: 1.4rem;
-    color: #60a5fa;
     margin-bottom: 15px;
 }
 
@@ -160,110 +224,161 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
     flex-wrap: wrap;
-}
-
-.div_filtro p {
-    color: #cbd5e1;
-    font-weight: bold;
+    gap: 15px;
 }
 
 .div_filtro input {
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #3b82f6;
-    background-color: #1e293b;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #1e293b;
     color: white;
-    font-size: 1rem;
+    width: 280px;
 }
 
 #limpar_filtro {
-    background-color: #4b5563;
-    color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-weight: bold;
+    background: #475569;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 #limpar_filtro:hover {
-    background-color: #6b7280;
-    transform: translateY(-1px);
+    background: #64748b;
 }
 
 /* ==========================================
-   GALERIA DE CARROS
+   GRID DE CATEGORIAS (ESTILIZADO DARK)
+========================================== */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 10px 0;
+    margin-bottom: 40px;
+}
+
+.grid-item {
+    background-color: #111827;
+    border: 2px solid #1f2937;
+    padding: 25px 15px;
+    border-radius: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.grid-item:hover {
+    border-color: #3b82f6;
+    transform: translateY(-4px);
+}
+
+.grid-item img {
+    max-width: 100%;
+    height: auto;
+    max-height: 65px;
+    object-fit: contain;
+    margin-bottom: 12px;
+}
+
+.grid-item p {
+    margin: 0;
+    font-weight: bold;
+    color: #60a5fa;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ==========================================
+   GALERIA MASONRY (ESTILO PINTEREST)
 ========================================== */
 .galeria_de_carros {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
-    margin-top: 30px;
+    column-count: 4;
+    column-gap: 20px;
     margin-bottom: 50px;
 }
 
-/* CARTÕES E ITENS INTERNOS DOS CARDS */
 .cartao-item {
-    background-color: #111827;
-    border: 2px solid #374151;
-    border-radius: 15px;
+    break-inside: avoid;
+    margin-bottom: 20px;
+    background: #111827;
+    border-radius: 18px;
     overflow: hidden;
-    transition: 0.3s;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    border: 2px solid #1f2937;
+    transition: .3s;
+    box-shadow: 0 5px 20px rgba(0,0,0,.4);
 }
 
 .cartao-item:hover {
-    transform: scale(1.03);
+    transform: translateY(-5px);
     border-color: #3b82f6;
+    box-shadow: 0 10px 30px rgba(59,130,246,.3);
 }
 
-/* IMAGENS DOS CARDS */
 .cartao-item img {
     width: 100%;
-    height: 220px;
-    object-fit: cover;
     display: block;
+    object-fit: cover;
 }
 
-/* TEXTO DOS CARDS */
 .cartao-item h3 {
     color: #60a5fa;
-    padding: 15px 15px 5px;
-    font-size: 1.3rem;
+    padding: 15px;
+    padding-bottom: 5px;
 }
 
 .cartao-item p {
-    color: #d1d5db;
     padding: 0 15px 15px;
-    font-size: 0.95rem;
+    color: #d1d5db;
+    line-height: 1.5;
+}
+
+.cartao-item button {
+    width: calc(100% - 30px);
+    margin: 0 15px 15px;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #dc2626;
+    color: white;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.cartao-item button:hover {
+    background: #ef4444;
 }
 
 /* ==========================================
-   RESPONSIVIDADE
+   MEDIA QUERIES (RESPONSIVIDADE)
 ========================================== */
-@media (max-width: 768px) {
-    .titulo {
-        font-size: 2rem;
-    }
+@media(max-width: 1200px) {
+    .galeria_de_carros { column-count: 3; }
+}
 
-    nav {
-        gap: 10px;
-    }
+@media(max-width: 992px) {
+    .grid-container { grid-template-columns: repeat(2, 1fr); }
+}
 
-    .nav-btn {
-        padding: 10px 18px;
-        font-size: 0.9rem;
-    }
+@media(max-width: 768px) {
+    .galeria_de_carros { column-count: 2; }
+    .titulo { font-size: 2rem; }
+    .carrossel { height: 300px; }
+}
 
-    .div_filtro {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .div_filtro input {
-        width: 100%;
-    }
+@media(max-width: 500px) {
+    .galeria_de_carros { column-count: 1; }
+    .grid-container { grid-template-columns: 1fr; }
+    nav { flex-direction: column; align-items: center; }
+    .titulo { font-size: 1.7rem; }
 }

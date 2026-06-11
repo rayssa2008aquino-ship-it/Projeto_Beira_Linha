@@ -1,170 +1,314 @@
-// 1. Captura correta dos elementos do HTML (Usando as suas novas variáveis)
+/* ==========================================
+   CAPTURA DOS ELEMENTOS HTML
+========================================== */
+// Elementos da página de cadastro (podem ser null na index)
 let campoNome = document.getElementById("nome_carro");
-let campoDescricao = document.getElementById("descrição");
-let galeria_de_carros = document.querySelector(".galeria_de_carros");
-let descricao = document.querySelector("#descrição");
-let nome = document.querySelector("#nome_carro");
+let campoMarca = document.getElementById("marca");
+let campoAno = document.getElementById("ano");
+let campoCor = document.getElementById("cor");
+let campoCategoria = document.getElementById("categoria");
+let campoDescricao = document.getElementById("descricao");
 let input_com_imagem = document.getElementById("input_com_imagem");
+
+// Elementos da página principal (index)
+let galeria_de_carros = document.querySelector(".galeria_de_carros");
 const texto_pesquisa = document.querySelector("#texto_pesquisa");
 const limpar_filtro = document.querySelector("#limpar_filtro");
 
-texto_pesquisa.addEventListener("input", function () {
-  ListaComFiltro();
-});
+const total_carros = document.getElementById("total_carros");
+const total_favoritos = document.getElementById("total_favoritos");
 
-limpar_filtro.addEventListener("click", function () {
-  ListaSemFiltro();
-});
+/* ==========================================
+   EVENTOS
+========================================== */
+if (texto_pesquisa) {
+  texto_pesquisa.addEventListener("input", function () {
+    ListaComFiltro();
+  });
+}
 
-// Array que vai armazenar os objetos de carros cadastrados
-let car = [];
+if (limpar_filtro) {
+  limpar_filtro.addEventListener("click", function () {
+    texto_pesquisa.value = "";
+    ListaSemFiltro();
+  });
+}
 
-// Arrow function atualizada para incluir a imagem no objeto do carro
-const criarCarro = (nome, descricao, imagem) => {
-  return {
-    nome: nome,
-    descricao: descricao,
-    imagem: imagem, // Guarda o caminho da imagem aqui
+/* ==========================================
+   ARRAY DE CARROS (Carregado do LocalStorage)
+========================================== */
+let car = JSON.parse(localStorage.getItem("meus_carros")) || [];
+
+/* ==========================================
+   CRIAÇÃO DO OBJETO
+========================================== */
+function criarCarro(nome, marca, ano, cor, categoria, descricao, imagem) {
+  return { 
+    nome, 
+    marca, 
+    ano, 
+    cor, 
+    categoria, 
+    descricao, 
+    imagem,
+    favorito: false 
   };
-};
+}
 
-// Função para cadastrar o carro
+/* ==========================================
+   CADASTRAR CARRO
+========================================== */
 function cadastrar_carros() {
-  // Validação básica para não aceitar campos vazios
-  if (campoNome.value.trim() === "" || campoDescricao.value.trim() === "") {
-    alert("Por favor, preencha o nome e a descrição do carro!");
+  // Verifica se os campos existem na página atual antes de prosseguir
+  if (!campoNome || !campoMarca || !campoAno) return;
+
+  if (
+    campoNome.value.trim() === "" ||
+    campoMarca.value.trim() === "" ||
+    campoAno.value.trim() === ""
+  ) {
+    alert("Preencha Nome, Marca e Ano.");
     return;
   }
 
-  // Pega o arquivo de imagem que o usuário selecionou no computador
-  let arquivo = input_com_imagem.files[0];
-  let caminhoImagem = "";
+  let arquivo = input_com_imagem ? input_com_imagem.files[0] : null;
 
-  // Se o usuário escolheu um arquivo, cria um link temporário para ele
   if (arquivo) {
-    caminhoImagem = URL.createObjectURL(arquivo);
+    let leitor = new FileReader();
+    leitor.onloadend = function () {
+      salvarCarroNoArray(leitor.result);
+    };
+    leitor.readAsDataURL(arquivo);
+  } else {
+    salvarCarroNoArray("");
   }
+}
 
-  // Executa a função criadora passando Nome, Descrição e a Imagem
-  let novo_carro = criarCarro(
+function salvarCarroNoArray(caminhoImagem) {
+  if (!campoNome) return;
+
+  let novoCarro = criarCarro(
     campoNome.value,
+    campoMarca.value,
+    campoAno.value,
+    campoCor.value,
+    campoCategoria.value,
     campoDescricao.value,
-    caminhoImagem,
+    caminhoImagem
   );
 
-  // Adiciona o novo carro dentro do array 'car'
-  car.push(novo_carro);
-  console.log(novo_carro);
-  // Limpa os campos de texto após o cadastro com sucesso
+  car.push(novoCarro);
+  localStorage.setItem("meus_carros", JSON.stringify(car));
+
+  atualizarEstatisticas();
   ListaSemFiltro();
-  novo_carro_campos();
+  limparCampos();
+
+  alert("Carro cadastrado com sucesso!");
 }
 
-function ListaComFiltro() {
-  // Limpa a galeria na tela antes de refazer a lista atualizada
-  galeria_de_carros.innerHTML = "";
-  // Loop que percorre o array 'car' criando elementos puros na memória
-  // Loop que percorre o array 'car' criando elementos puros na memória
-  for (let i = 0; i < car.length; i++) {
-    // CORREÇÃO: Cria uma caixinha (div) para o carro e adiciona a classe do seu CSS
-
-    if (car[i].nome == texto_pesquisa.value) {
-      const cartao = document.createElement("div");
-      cartao.classList.add("cartao-item");
-      const titulo = document.createElement("h3");
-      const paragrafo = document.createElement("p");
-      const imagem = document.createElement("img");
-      const button = document.createElement("div");
-      button.innerHTML = `
-             
-         <button id="remover" onclick="removerelement()">Remover itens</button>
-           
-        `;
-
-      titulo.textContent = car[i].nome;
-      paragrafo.textContent = car[i].descricao;
-
-      // Se houver uma imagem cadastrada, define o link dela e adiciona no cartão
-      if (car[i].imagem !== "") {
-        imagem.src = car[i].imagem;
-        imagem.style.width = "100%"; // Ajustado para ocupar a largura do cartão
-        imagem.style.borderRadius = "4px"; // Arredonda os cantos da imagem
-        cartao.appendChild(imagem);
-      }
-
-      // Coloca o título e o parágrafo dentro da caixinha do carro
-      cartao.appendChild(titulo);
-      cartao.appendChild(paragrafo);
-      cartao.appendChild(button);
-
-      // Coloca a caixinha completa dentro da galeria principal
-      galeria_de_carros.appendChild(cartao);
-    }
-  }
-}
-
+/* ==========================================
+   MOSTRAR TODOS OS CARROS
+========================================== */
 function ListaSemFiltro() {
-  // Limpa a galeria na tela antes de refazer a lista atualizada
+  if (!galeria_de_carros) return;
+
   galeria_de_carros.innerHTML = "";
-  // Loop que percorre o array 'car' criando elementos puros na memória
-  // Loop que percorre o array 'car' criando elementos puros na memória
+
+  // Se não houver carros, exibe uma mensagem amigável
+  if (car.length === 0) {
+    galeria_de_carros.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: #888;'>Nenhum carro cadastrado ainda. Vá em 'Cadastro de Carros'!</p>";
+    return;
+  }
+
   for (let i = 0; i < car.length; i++) {
-    // CORREÇÃO: Cria uma caixinha (div) para o carro e adiciona a classe do seu CSS
-
-    const cartao = document.createElement("div");
-    cartao.classList.add("cartao-item");
-    const titulo = document.createElement("h3");
-    const paragrafo = document.createElement("p");
-    const imagem = document.createElement("img");
-    const button = document.createElement("div");
-    button.innerHTML = `
-             
-         <button id="remover" onclick="removerelement()">Remover itens</button>
-           
-        `;
-
-    titulo.textContent = car[i].nome;
-    paragrafo.textContent = car[i].descricao;
-
-    // Se houver uma imagem cadastrada, define o link dela e adiciona no cartão
-    if (car[i].imagem !== "") {
-      imagem.src = car[i].imagem;
-      imagem.style.width = "100%"; // Ajustado para ocupar a largura do cartão
-      imagem.style.borderRadius = "4px"; // Arredonda os cantos da imagem
-      cartao.appendChild(imagem);
-    }
-
-    // Coloca o título e o parágrafo dentro da caixinha do carro
-    cartao.appendChild(titulo);
-    cartao.appendChild(paragrafo);
-    cartao.appendChild(button);
-
-    // Coloca a caixinha completa dentro da galeria principal
-    galeria_de_carros.appendChild(cartao);
+    criarCard(car[i], i);
   }
 }
 
-// Função do botão "Remover itens" (Limpa a lista e a tela)
-function remover_itens() {
-  car = [];
+/* ==========================================
+   FILTRO DE PESQUISA
+========================================== */
+function ListaComFiltro() {
+  if (!galeria_de_carros || !texto_pesquisa) return;
+
   galeria_de_carros.innerHTML = "";
+  let pesquisa = texto_pesquisa.value.toLowerCase();
+
+  for (let i = 0; i < car.length; i++) {
+    if (
+      car[i].nome.toLowerCase().includes(pesquisa) ||
+      car[i].marca.toLowerCase().includes(pesquisa) ||
+      car[i].ano.toString().includes(pesquisa)
+    ) {
+      criarCard(car[i], i);
+    }
+  }
 }
 
-function removerelement(indice) {
-  car.splice(indice, 1); //remover elemento do array
-  localStorage.setItem("car", JSON.stringify(cadastrar_carros));
+/* ==========================================
+   CRIAR CARD HTML
+========================================== */
+function criarCard(carro, indice) {
+  if (!galeria_de_carros) return;
+
+  const cartao = document.createElement("div");
+  cartao.classList.add("cartao-item");
+
+  if (carro.imagem && carro.imagem !== "") {
+    const imagem = document.createElement("img");
+    imagem.src = carro.imagem;
+    imagem.alt = `Foto do ${carro.nome}`;
+    imagem.style.width = "100%";
+    cartao.appendChild(imagem);
+  }
+
+  const titulo = document.createElement("h3");
+  titulo.textContent = carro.nome;
+
+  const descricao = document.createElement("p");
+  descricao.innerHTML = `
+    <strong>Marca:</strong> ${carro.marca}<br>
+    <strong>Ano:</strong> ${carro.ano}<br>
+    <strong>Cor:</strong> ${carro.cor}<br>
+    <strong>Categoria:</strong> ${carro.categoria}<br><br>
+    ${carro.descricao}
+  `;
+
+  const botaoFavoritar = document.createElement("button");
+  botaoFavoritar.textContent = carro.favorito ? "⭐ Favoritado" : "☆ Favoritar";
+  botaoFavoritar.style.marginRight = "5px";
+  botaoFavoritar.onclick = function () {
+    alternarFavorito(indice);
+  };
+
+  const botaoRemover = document.createElement("button");
+  botaoRemover.textContent = "Remover";
+  botaoRemover.onclick = function () {
+    removerelement(indice);
+  };
+
+  cartao.appendChild(titulo);
+  cartao.appendChild(descricao);
+  cartao.appendChild(botaoFavoritar);
+  cartao.appendChild(botaoRemover);
+
+  galeria_de_carros.appendChild(cartao);
+}
+
+/* ==========================================
+   FUNÇÃO DE FAVORITAR
+========================================== */
+function alternarFavorito(indice) {
+  car[indice].favorito = !car[indice].favorito;
+  localStorage.setItem("meus_carros", JSON.stringify(car));
+  
+  atualizarEstatisticas();
   ListaSemFiltro();
 }
 
-// Função do botão "Novo carro" (Apenas limpa os campos de texto)
-function novo_carro() {
-  novo_carro_campos();
+/* ==========================================
+   REMOVER UM CARRO
+========================================== */
+function removerelement(indice) {
+  car.splice(indice, 1);
+  localStorage.setItem("meus_carros", JSON.stringify(car));
+
+  atualizarEstatisticas();
+  ListaSemFiltro();
 }
 
-// Função auxiliar para reaproveitar a limpeza de inputs
-function novo_carro_campos() {
-  campoNome.value = "";
-  campoDescricao.value = "";
-  input_com_imagem.value = ""; // Limpa o campo de seleção de arquivo
-  campoNome.focus();
+/* ==========================================
+   ATUALIZAR ESTATÍSTICAS
+========================================== */
+function atualizarEstatisticas() {
+  if (total_carros) {
+    total_carros.textContent = car.length;
+  }
+  
+  if (total_favoritos) {
+    const qtdFavoritos = car.filter(carro => carro.favorito).length;
+    total_favoritos.textContent = qtdFavoritos;
+  }
 }
+
+/* ==========================================
+   LIMPAR CAMPOS DO FORMULÁRIO
+========================================== */
+function limparCampos() {
+  if (campoNome) {
+    campoNome.value = "";
+    campoMarca.value = "";
+    campoAno.value = "";
+    campoCor.value = "";
+    campoCategoria.value = "";
+    campoDescricao.value = "";
+    if (input_com_imagem) input_com_imagem.value = "";
+
+    let preview = document.getElementById("preview_imagem");
+    if (preview) preview.style.display = "none";
+
+    campoNome.focus();
+  }
+}
+
+/* ==========================================
+   CARROSSEL AUTOMÁTICO
+========================================== */
+let slideIndex = 0;
+function moverCarrossel() {
+  const slides = document.querySelector(".slides");
+  if (slides) {
+    const imagens = slides.querySelectorAll("img");
+    if (imagens.length === 0) return;
+    
+    slideIndex++;
+    if (slideIndex >= imagens.length) {
+      slideIndex = 0;
+    }
+    slides.style.transform = `translateX(-${slideIndex * 100}%)`;
+  }
+}
+
+if (document.querySelector(".carrossel")) {
+  setInterval(moverCarrossel, 1000);
+}
+
+/* ==========================================
+   FILTRAR POR CATEGORIA (Ao clicar nas imagens do Grid)
+========================================== */
+function filtrarPorCategoria(nomeCategoria) {
+  if (!galeria_de_carros) return;
+
+  // Limpa os cards exibidos atualmente
+  galeria_de_carros.innerHTML = "";
+  
+  let categoriaPesquisada = nomeCategoria.toLowerCase();
+  let carrosEncontrados = 0;
+
+  for (let i = 0; i < car.length; i++) {
+    // Verifica se o carro possui uma categoria definida e se ela bate com a selecionada
+    if (car[i].categoria && car[i].categoria.toLowerCase() === categoriaPesquisada) {
+      criarCard(car[i], i);
+      carrosEncontrados++;
+    }
+  }
+
+  // Caso nenhum carro tenha sido cadastrado nessa categoria ainda
+  if (carrosEncontrados === 0) {
+    galeria_de_carros.innerHTML = `
+      <p style="grid-column: 1 / -1; text-align: center; color: #888; margin-top: 20px;">
+        Nenhum carro cadastrado na categoria "${nomeCategoria}" ainda.
+      </p>
+    `;
+  }
+}
+
+/* ==========================================
+   INICIAR SISTEMA
+========================================== */
+if (galeria_de_carros) {
+  ListaSemFiltro();
+}
+
+atualizarEstatisticas();

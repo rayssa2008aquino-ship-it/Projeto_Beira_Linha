@@ -4,62 +4,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca de Carros</title>
-     <link rel="stylesheet" href="./../css/style.css">
+    <title>Cadastro de Carros</title>
+    <link rel="stylesheet" href="./../css/style.css">
 </head>
 
 <body>
-    <!-- Topo da página -->
+
     <header>
         <nav>
-            <a href="#cadastro" class="nav-btn">Cadastro de carros</a>
-            <a href="#galeria" class="nav-btn">Todos os carros</a>
-            <a href="#favoritos" class="nav-btn">Favoritos</a>
-            <a href="#contatos" class="nav-btn">Contatos</a>
+            <a href="index.html" class="nav-btn">Início</a>
+            <a href="cadastro.html" class="nav-btn">Cadastro de Carros</a>
+            <a href="index.html#galeria" class="nav-btn">Todos os Carros</a>
         </nav>
     </header>
 
     <div class="container">
+
         <div class="titulo">
-            Conheça a minha galeria de carros do sonho
+            🚗 Cadastro de Carros
         </div>
 
-        <!-- Seção de Cadastro com Nome, Descrição, Imagem e Botões -->
+        <section class="estatisticas">
+            <h3>Total de carros: <span id="total_carros">0</span></h3>
+        </section>
+
         <div id="cadastro" class="secao-cadastro">
-            <input id="nome_carro" type="text" placeholder="Digite o nome do carro" />
-            <input id="descrição" type="text" placeholder="Digite a descrição do carro" />
             
-            <!-- Novo campo de imagem adaptado para carros -->
-            <label for="input_com_imagem">Selecione uma imagem do carro:</label>
-            <input type="file" id="input_com_imagem" accept="image" />
+            <label for="nome_carro">Nome do Carro:</label>
+            <input id="nome_carro" type="text" placeholder="Digite o nome do carro">
 
-            <!-- Atribuição das funções aos cliques dos botões -->
-            <button id="cadastrar_carros" onclick="cadastrar_carros()">Cadastrar</button>
-            <button id="remover" onclick="remover_itens()">Remover itens</button>
-            <button id="novo_carro" onclick="novo_carro()">Novo carro</button>
+            <label for="marca">Marca:</label>
+            <input id="marca" type="text" placeholder="Digite a marca do carro">
+
+            <label for="ano">Ano de Fabricação:</label>
+            <input id="ano" type="number" placeholder="Digite o ano do carro">
+
+            <label for="cor">Cor do Veículo:</label>
+            <input id="cor" type="text" placeholder="Digite a cor do carro">
+
+            <label for="categoria">Categoria do Carro:</label>
+            <select id="categoria" title="Categoria do carro">
+                <option value="">Selecione uma categoria</option>
+                <option value="Esportivos">Esportivos</option>
+                <option value="Antigos">Antigos</option>
+                <option value="Modificados">Modificados</option>
+                <option value="Caminhonetes">Caminhonetes</option>
+            </select>
+
+            <label for="descricao">Descrição:</label>
+            <input id="descricao" type="text" placeholder="Digite uma breve descrição">
+
+            <label for="input_com_imagem">Selecione uma imagem:</label>
+            <input type="file" id="input_com_imagem" accept="image/*">
+
+            <img id="preview_imagem" class="preview-imagem" alt="Pré-visualização" style="display:none; max-width: 100%; margin-top: 10px;">
+
+            <button id="cadastrar_carros" onclick="cadastrar_carros()">Cadastrar Carro</button>
+            <button id="novo_carro" onclick="novo_carro()">Limpar Campos</button>
+            <button id="remover" onclick="remover_itens()">Remover Todos os Carros</button>
+
         </div>
 
-        <!-- Galeria onde os carros cadastrados vão aparecer -->
-        <div class="galeria_de_carros" id="galeria">
-            <!-- Os carros novos entrarão aqui através do JavaScript -->
-        </div>
-    </div>
-<!-- Campo para filtrar os carros cadastrados -->
-
-
-      <section class = "section_filtro">
-        <h2>Confira a minha lista de carros abaixo!</h2>
-        <div class="div_filtro">
-          <p>Escreva o nome ao lado!</p>
-          <input type="text" id="texto_pesquisa" />
-          <button id="limpar_filtro">Limpar filtro</button>
-        </div>
-      </section>
-
-      <!-- Galeria onde os carros cadastrados vão aparecer -->
-      <div class="galeria_de_carros" id="galeria">
-        <!-- Os carros novos entrarão aqui através do JavaScript -->
-      </div>
     </div>
 
     <script src="./../java/script.js"></script>

@@ -1,44 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca de carros</title>
-     <link rel="stylesheet" href="./../css/style.css">
+    <title>Galeria de Carros</title>
+
+    <link rel="stylesheet" href="./../css/style.css">
 </head>
 
 <body>
-    <!-- Topo da página -->
+
     <header>
         <nav>
-            <a href="carros" class="nav-btn"> cadastro de carros
-            </a>
-            <a href="carros" class="nav-btn"> Todos os carros
-            </a>
-            <a href="carros" class="nav-btn"> Favoritos
-            </a>
-            <a href="carros" class="nav-btn"> contatos
-            </a>
+            <a href="index.html" class="nav-btn">Início</a>
+            <a href="cadastro.html" class="nav-btn">Cadastro de Carros</a>
+            <a href="#galeria" class="nav-btn">Todos os Carros</a>
+            <a href="#favoritos" class="nav-btn">Favoritos</a>
         </nav>
     </header>
 
-    <div class=" titulo">
-        Conheça a minha galeria de carros do sonho
+    <div class="container">
+
+        <div class="titulo">
+            🚗 Minha Galeria de Carros dos Sonhos
+        </div>
+
+        <section class="estatisticas">
+            <h3>Total de carros: <span id="total_carros">0</span></h3>
+            <h3>Favoritos: <span id="total_favoritos">0</span></h3>
+        </section>
+
+        <section class="carrossel">
+            <div class="slides">
+                <img src="https://archive.seven82motors.com.au/wp-content/uploads/2024/03/69-BLOWN-FORD-MUSTANG-FASTBACK-2.jpg" alt="Mustang">
+                <img src="https://i.pinimg.com/originals/34/d3/8b/34d38bf310e84700f9e84cd30b5693ee.jpg" alt="Muscle Car">
+                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7" alt="Esportivo">
+            </div>
+        </section>
+
+        <section class="section_filtro">
+            <h2>Pesquise seus carros favoritos</h2>
+            <div class="div_filtro">
+                <input type="text" id="texto_pesquisa" placeholder="Digite nome, marca ou ano">
+                <button id="limpar_filtro">Limpar Filtro</button>
+            </div>
+        </section>
+
+        <div class="grid-container">
+            <div class="grid-item" onclick="filtrarPorCategoria('Antigos')" style="cursor: pointer;">
+                <img src="../antigos.png" alt="Carros Antigos">
+                <p>Antigos</p>
+            </div>
+
+            <div class="grid-item" onclick="filtrarPorCategoria('Esportivos')" style="cursor: pointer;">
+                <img src="../esportivos.png" alt="Carros Esportivos">
+                <p>Esportivos</p>
+            </div>
+
+            <div class="grid-item" onclick="filtrarPorCategoria('Modificados')" style="cursor: pointer;">
+                <img src="../modificados.png" alt="Carros Modificados">
+                <p>Modificados</p>
+            </div>
+
+            <div class="grid-item" onclick="filtrarPorCategoria('Caminhonetes')" style="cursor: pointer;">
+                <img src="../caminhonetes.png" alt="Caminhonetes">
+                <p>Caminhonetes</p>
+            </div>
+        </div>
+
+        <div class="galeria_de_carros" id="galeria">
+            </div>
+
     </div>
 
-    <div class=" imagens ">
-        <div class=" cartão ">
-            <img src="https://archive.seven82motors.com.au/wp-content/uploads/2024/03/69-BLOWN-FORD-MUSTANG-FASTBACK-2.jpg"
-                alt=" carro 1969-blown-ford-mustang-fastback">
-        </div>
-        <div class=" cartão">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFi-A583zO8OKmKyIyEkKCOW3PlaOfy72cKujvKtDdjoRAodOB"
-                alt=" carro 1969-blown-ford-mustang-fastback">
+    <script src="./../java/script.js"></script>
 
-        </div>
-    </div>
-  
 </body>
 
 </html>
